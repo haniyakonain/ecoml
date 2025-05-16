@@ -5,7 +5,7 @@ import './styles/health.css';
 const Health = () => {
     const [location, setLocation] = useState('');
     const [specialty, setSpecialty] = useState('');
-    const [areas, setAreas] = useState([]); // Store areas
+    const [areas, setAreas] = useState([]);
     const [selectedArea, setSelectedArea] = useState('');
     const [searchResults, setSearchResults] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -23,13 +23,14 @@ const Health = () => {
         { id: 'dentist', name: 'Dentist' }
     ];
 
-    // Fetch areas when the location is updated
-    const fetchAreas = async (location) => {
-        if (!location) return;
+    useEffect(() => {
+        if (location) fetchAreas(location);
+    }, [location]);
 
+    const fetchAreas = async (location) => {
         setLoading(true);
         try {
-            const response = await axios.get('https://nominatim.openstreetmap.org/search', {
+            const { data } = await axios.get('https://nominatim.openstreetmap.org/search', {
                 params: {
                     q: location,
                     format: 'json',
@@ -38,27 +39,20 @@ const Health = () => {
                 },
             });
 
-            // Extract areas (e.g., neighborhoods or regions)
-            const fetchedAreas = response.data
-                .filter(place => place.address && place.address.city) // Filter by valid city
+            const fetchedAreas = data
+                .filter(place => place.address && place.address.city)
                 .map(place => place.address.suburb || place.address.neighbourhood || place.address.city);
 
-            setAreas(fetchedAreas);
-            setSelectedArea(fetchedAreas[0] || ''); // Select the first area if available
+            setAreas([...new Set(fetchedAreas)]);
+            setSelectedArea(fetchedAreas[0] || '');
         } catch (err) {
-            console.error('Error fetching areas:', err);
+            console.error(err);
             setError('Failed to fetch areas. Please try again.');
         } finally {
             setLoading(false);
         }
     };
 
-    // Call fetchAreas when location changes
-    useEffect(() => {
-        fetchAreas(location);
-    }, [location]);
-
-    // Handle search for medical services
     const handleSearch = async (e) => {
         e.preventDefault();
         setLoading(true);
@@ -67,7 +61,7 @@ const Health = () => {
         try {
             const searchQuery = `${specialty || ''} ${selectedArea || location}`.trim();
 
-            const response = await axios.get('https://nominatim.openstreetmap.org/search', {
+            const { data } = await axios.get('https://nominatim.openstreetmap.org/search', {
                 params: {
                     q: searchQuery,
                     format: 'json',
@@ -76,25 +70,26 @@ const Health = () => {
                 }
             });
 
-            if (response.data.length === 0) {
-                setError(
-                    `No results found for "${specialty}" in "${selectedArea || location}". Try a broader search or check for typos.`
-                );
+            if (data.length === 0) {
+                setError(`No results found for "${specialty}" in "${selectedArea || location}".`);
                 setSearchResults([]);
                 return;
             }
 
-            const results = response.data.map((place) => ({
+            const results = data.map((place) => ({
                 id: place.place_id,
                 name: place.display_name,
                 type: place.type || 'Healthcare Facility',
+                lat: place.lat,
+                lon: place.lon,
                 location: `${place.lat}, ${place.lon}`,
+                placeId: place.osm_id
             }));
 
             setSearchResults(results);
         } catch (err) {
-            console.error('Error fetching data:', err);
-            setError('Failed to fetch medical facilities. Please try again later.');
+            console.error(err);
+            setError('Failed to fetch medical facilities.');
         } finally {
             setLoading(false);
         }
@@ -107,7 +102,6 @@ const Health = () => {
                 <p>Find doctors, hospitals, and medical facilities near you</p>
             </div>
 
-            {/* Search Section */}
             <div className="search-section">
                 <form onSubmit={handleSearch} className="search-form">
                     <div className="form-group">
@@ -132,9 +126,7 @@ const Health = () => {
                         >
                             {areas.length > 0 ? (
                                 areas.map((area, index) => (
-                                    <option key={index} value={area}>
-                                        {area}
-                                    </option>
+                                    <option key={index} value={area}>{area}</option>
                                 ))
                             ) : (
                                 <option value="">No areas found</option>
@@ -151,9 +143,7 @@ const Health = () => {
                         >
                             <option value="">All Medical Services</option>
                             {specialties.map((spec) => (
-                                <option key={spec.id} value={spec.id}>
-                                    {spec.name}
-                                </option>
+                                <option key={spec.id} value={spec.name}>{spec.name}</option>
                             ))}
                         </select>
                     </div>
@@ -164,35 +154,22 @@ const Health = () => {
                 </form>
             </div>
 
-            {/* Error Message */}
             {error && <div className="error-message">{error}</div>}
 
-            {/* Results Grid */}
             <div className="practitioners-grid">
                 {searchResults.map((facility) => (
                     <div key={facility.id} className="practitioner-card">
                         <div className="practitioner-header">
                             <h3>{facility.name}</h3>
-                            <div className="rating-container">
-                                <span className="rating">★ {facility.rating}</span>
-                                <span className="rating-count">({facility.totalRatings} reviews)</span>
-                            </div>
                         </div>
-
                         <div className="practitioner-info">
                             <p><strong>Type:</strong> {facility.type}</p>
                             <p><strong>Location:</strong> {facility.location}</p>
-                            <p><strong>Status:</strong>
-                                <span className={facility.openNow ? 'open' : 'closed'}>
-                                    {facility.openNow ? ' Open Now' : ' Closed'}
-                                </span>
-                            </p>
                         </div>
-
-                            <div className="practitioner-actions">
+                        <div className="practitioner-actions">
                             <button
                                 className="book-btn"
-                                onClick={() => window.open(`https://www.google.com/maps/place/?q=place_id:${facility.placeId}`, '_blank')}
+                                onClick={() => window.open(`https://www.google.com/maps/search/?api=1&query=${facility.lat},${facility.lon}`, '_blank')}
                             >
                                 Get Directions
                             </button>

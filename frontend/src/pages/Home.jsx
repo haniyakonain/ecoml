@@ -45,7 +45,8 @@ const Home = () => {
                            Your Symptoms, Nature's Remedies
                         </p>
                     </div>
-                    <div className="scroll-indicator" onClick={handleScroll}></div>
+                    <div className="scroll-indicator" onClick={handleScroll}>  <span>Click</span>
+</div>
                 </section>
 
                 <section id="remedies-section" className="remedies-section">

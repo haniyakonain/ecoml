@@ -92,7 +92,6 @@ function App() {
                 <footer className="footer">
                     <div className="footer-content">
                     <div className="footer-logo-section">
-                            <img src={logo} alt="EcoMl Logo" className="footer-logo" />
                             <h3>EcoMl</h3>
                         </div>
                         <p className="footer-text">

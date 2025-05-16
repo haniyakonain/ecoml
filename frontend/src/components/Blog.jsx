@@ -208,7 +208,7 @@ const Blog = () => {
 
     return (
         <div className="blog-container">
-            <h1 className="blog-title">Explore Medicinal Herbs</h1>
+            <h1 className="blog-title"><br></br>Explore Medicinal Herbs</h1>
             
             <div className="filter-section">
                 <div className="search-box">
