@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './styles/health.css';
 
-const Health = () => {
+const Herbalist = () => {
     const [location, setLocation] = useState('');
     const [specialty, setSpecialty] = useState('');
     const [areas, setAreas] = useState([]);
@@ -12,15 +12,15 @@ const Health = () => {
     const [error, setError] = useState(null);
 
     const specialties = [
-        { id: 'general_physician', name: 'General Physician' },
-        { id: 'ayurvedic', name: 'Ayurvedic Doctor' },
+        { id: 'herbalist', name: 'Herbalist' },
+        { id: 'ayurveda_specialist', name: 'Ayurveda Specialist' },
+        { id: 'naturopath', name: 'Naturopath' },
+        { id: 'tcm_doctor', name: 'Traditional Chinese Medicine Practitioner' },
         { id: 'homeopathy', name: 'Homeopathy Doctor' },
-        { id: 'cardiologist', name: 'Cardiologist' },
-        { id: 'dermatologist', name: 'Dermatologist' },
-        { id: 'pediatrician', name: 'Pediatrician' },
-        { id: 'orthopedic', name: 'Orthopedic' },
-        { id: 'neurologist', name: 'Neurologist' },
-        { id: 'dentist', name: 'Dentist' }
+        { id: 'unani', name: 'Unani Medicine Practitioner' },
+        { id: 'holistic', name: 'Holistic Healer' },
+        { id: 'botanical_expert', name: 'Botanical Medicine Expert' },
+        { id: 'aromatherapist', name: 'Aromatherapist' }
     ];
 
     useEffect(() => {
@@ -79,7 +79,7 @@ const Health = () => {
             const results = data.map((place) => ({
                 id: place.place_id,
                 name: place.display_name,
-                type: place.type || 'Healthcare Facility',
+                type: place.type || 'Herbal Practice',
                 lat: place.lat,
                 lon: place.lon,
                 location: `${place.lat}, ${place.lon}`,
@@ -89,7 +89,7 @@ const Health = () => {
             setSearchResults(results);
         } catch (err) {
             console.error(err);
-            setError('Failed to fetch medical facilities.');
+            setError('Failed to fetch herbal facilities.');
         } finally {
             setLoading(false);
         }
@@ -98,8 +98,8 @@ const Health = () => {
     return (
         <div className="health-container">
             <div className="health-header">
-                <h1>Healthcare Services</h1>
-                <p>Find doctors, hospitals, and medical facilities near you</p>
+                <h1>Herbalist Services</h1>
+                <p>Find herbal doctors, traditional medicine experts, and nature-based healers near you</p>
             </div>
 
             <div className="search-section">
@@ -135,13 +135,13 @@ const Health = () => {
                     </div>
 
                     <div className="form-group">
-                        <label>Medical Specialty</label>
+                        <label>Herbal Specialty</label>
                         <select
                             value={specialty}
                             onChange={(e) => setSpecialty(e.target.value)}
                             className="search-select"
                         >
-                            <option value="">All Medical Services</option>
+                            <option value="">All Herbal Services</option>
                             {specialties.map((spec) => (
                                 <option key={spec.id} value={spec.name}>{spec.name}</option>
                             ))}
@@ -149,7 +149,7 @@ const Health = () => {
                     </div>
 
                     <button type="submit" className="search-button" disabled={loading}>
-                        {loading ? 'Searching...' : 'Find Medical Services'}
+                        {loading ? 'Searching...' : 'Find Herbal Services'}
                     </button>
                 </form>
             </div>
@@ -180,11 +180,11 @@ const Health = () => {
 
             {searchResults.length === 0 && !loading && !error && (
                 <div className="empty-state">
-                    <p>Enter a location to find medical services near you</p>
+                    <p>Enter a location to find herbalist services near you</p>
                 </div>
             )}
         </div>
     );
 };
 
-export default Health;
+export default Herbalist;

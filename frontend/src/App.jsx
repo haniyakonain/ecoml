@@ -40,18 +40,31 @@ function App() {
         }
     };
 
-    // Fetch herb recommendations
-    const fetchHerbData = async (symptoms) => {
-        setLoading(true);
-        try {
-            const response = await axios.post('http://localhost:5173/api/recommendations', { symptoms });
-            setHerbData(response.data);
-        } catch (error) {
-            console.error('Error fetching herb data:', error);
-        } finally {
-            setLoading(false);
-        }
-    };
+   // In your App.jsx, change the fetchHerbData function to:
+const fetchHerbData = async (symptoms) => {
+    setLoading(true);
+    try {
+        const response = await axios.post(
+            'http://localhost:5000/api/recommend', 
+            { symptoms },
+            {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+        );
+        setHerbData(response.data);
+    } catch (error) {
+        console.error('Full error details:', {
+            message: error.message,
+            response: error.response?.data,
+            status: error.response?.status,
+            headers: error.response?.headers,
+        });
+    } finally {
+        setLoading(false);
+    }
+};
 
     return (
         <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
