@@ -1,0 +1,400 @@
+/* Plant-Inspired Modern Navbar CSS */
+
+/* Root Variables for Theme Colors */
+:root {
+  --leaf-green: #4caf50;
+  --dark-moss: #2e7d32;
+  --soil-brown: #3e2723;
+  --flower-pink: #ec407a;
+  --petal-light: #f8bbd0;
+  --stem-green: #81c784;
+  --forest-gradient: linear-gradient(135deg, #388e3c, #1b5e20);
+  --blossom-gradient: linear-gradient(135deg, #4caf50, #8bc34a);
+}
+
+/* Base Navbar Styles */
+.navbar {
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 4px 20px rgba(46, 125, 50, 0.15);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  height: 70px;
+  backdrop-filter: blur(8px);
+  border-bottom: 2px solid var(--stem-green);
+  animation: growIn 0.5s ease-out;
+  padding: 0 40px;
+}
+
+/* Brand Section - Explicitly positioned left */
+.nav-brand {
+  height: 70px;
+  display: flex;
+  align-items: center;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 24px;
+  position: relative;
+  order: 1; /* Ensure brand comes first */
+}
+
+.nav-brand a {
+  color: var(--dark-moss);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  transition: all 0.4s ease;
+}
+
+.nav-brand a:hover {
+  color: var(--leaf-green);
+  transform: translateY(-2px);
+}
+
+/* Logo with Plant Decoration */
+.nav-logo {
+  height: 40px;
+  width: auto;
+  margin-right: 12px;
+  filter: drop-shadow(0 2px 4px rgba(46, 125, 50, 0.2));
+  transition: transform 0.5s ease;
+}
+
+.nav-brand a:hover .nav-logo {
+  transform: rotate(5deg) scale(1.05);
+}
+
+/* Logo Leaf Animation */
+.nav-brand::before {
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background-color: var(--stem-green);
+  border-radius: 50% 50% 0 50%;
+  left: -5px;
+  top: 20px;
+  transform: rotate(-45deg);
+  opacity: 0.8;
+  animation: floatLeaf 3s ease-in-out infinite;
+}
+
+.nav-brand::after {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background-color: var(--flower-pink);
+  border-radius: 50%;
+  right: -5px;
+  top: 25px;
+  opacity: 0.8;
+  animation: floatFlower 3.5s ease-in-out infinite;
+}
+
+/* Navigation Links Container - Positioned right */
+.nav-links {
+  display: flex;
+  align-items: center;
+  height: 70px;
+  gap: 20px; /* Increased gap between links */
+  margin-left: auto; /* Push links to right side */
+  order: 2; /* Ensure links come after brand */
+}
+
+/* Individual Navigation Links */
+.nav-links a {
+  color: var(--soil-brown);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 16px;
+  padding: 8px 16px;
+  position: relative;
+  border-radius: 24px;
+  transition: all 0.3s ease;
+  font-family: 'Poppins', sans-serif;
+  letter-spacing: 0.5px;
+}
+
+/* Link Hover State */
+.nav-links a:hover {
+  color: var(--leaf-green);
+  background-color: rgba(129, 199, 132, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Link State - Growing Plant Indicator */
+.nav-links a::before {
+  content: '';
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  width: 2px;
+  height: 0;
+  background: var(--blossom-gradient);
+  transition: height 0.3s ease, width 0.3s ease 0.1s;
+  transform: translateX(-50%);
+  border-radius: 3px 3px 0 0;
+}
+
+.nav-links a:hover::before {
+  height: 12px;
+  width: 60%;
+}
+
+/* Active Link State */
+.nav-links a.active {
+  color: white;
+  background: var(--forest-gradient);
+  box-shadow: 0 4px 12px rgba(46, 125, 50, 0.25);
+  transform: translateY(-2px);
+}
+
+.nav-links a.active::before {
+  height: 12px;
+  width: 70%;
+  background: var(--flower-pink);
+}
+
+/* Active Link Flower */
+.nav-links a.active::after {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--petal-light);
+  bottom: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 0 10px var(--flower-pink);
+}
+
+/* Menu Icon (Hamburger) - For mobile */
+.menu-icon {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 24px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 1001;
+  padding: 0;
+  margin: 0;
+  order: 3; /* Place after links */
+}
+
+.menu-icon span {
+  height: 3px;
+  width: 100%;
+  background: var(--leaf-green);
+  border-radius: 3px;
+  transition: all 0.4s ease;
+}
+
+/* Menu Icon - Middle Line */
+.menu-icon span:nth-child(2) {
+  width: 75%;
+  align-self: flex-end;
+}
+
+/* Menu Icon Hover */
+.menu-icon:hover span {
+  background: var(--flower-pink);
+}
+
+.menu-icon:hover span:nth-child(2) {
+  width: 100%;
+}
+
+/* Menu Icon Active State */
+.menu-icon.active span:nth-child(1) {
+  transform: rotate(45deg) translate(8px, 8px);
+  background: var(--flower-pink);
+}
+
+.menu-icon.active span:nth-child(2) {
+  opacity: 0;
+  width: 0;
+}
+
+.menu-icon.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(8px, -8px);
+  background: var(--flower-pink);
+}
+
+/* Keyframe Animations */
+@keyframes growIn {
+  from {
+    transform: translateY(-100%) scaleY(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scaleY(1);
+    opacity: 1;
+  }
+}
+
+@keyframes floatLeaf {
+  0%, 100% {
+    transform: rotate(-45deg) translate(0, 0);
+  }
+  50% {
+    transform: rotate(-30deg) translate(2px, -2px);
+  }
+}
+
+@keyframes floatFlower {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(-2px, 2px);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 900px) {
+  .navbar {
+    padding: 0 20px;
+  }
+  
+  .nav-links {
+    gap: 10px;
+  }
+  
+  .nav-links a {
+    padding: 8px 12px;
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0 15px;
+    height: 65px;
+  }
+  
+  .nav-brand {
+    height: 65px;
+    font-size: 20px;
+  }
+  
+  .nav-logo {
+    height: 36px;
+  }
+  
+  .menu-icon {
+    display: flex;
+  }
+  
+  .nav-links {
+    position: fixed;
+    top: 65px; 
+    right: -100%;
+    width: 100%;
+    height: calc(100vh - 65px);
+    background: rgba(255, 255, 255, 0.98);
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 15px;
+    transition: right 0.4s ease-in-out;
+    backdrop-filter: blur(10px);
+    padding-top: 30px;
+    border-left: 2px solid var(--stem-green);
+    overflow-y: auto;
+    margin-left: 0; /* Reset margin for mobile */
+  }
+  
+  .nav-links.active {
+    right: 0;
+  }
+  
+  .nav-links a {
+    font-size: 18px;
+    padding: 14px 20px;
+    width: 80%;
+    text-align: center;
+    margin: 5px 0;
+    border-radius: 30px;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .nav-links a::before {
+    bottom: auto;
+    top: 50%;
+    left: 15px;
+    height: 0;
+    width: 3px;
+    transform: translateY(-50%);
+  }
+  
+  .nav-links a:hover::before {
+    height: 70%;
+    width: 3px;
+  }
+  
+  .nav-links a.active::before {
+    height: 80%;
+    width: 3px;
+  }
+  
+  .nav-links a.active::after {
+    left: 15px;
+    bottom: auto;
+    top: 20%;
+    transform: translateX(0);
+  }
+  
+  /* Animate Plant Elements in Mobile Menu */
+  .nav-links::before {
+    content: '';
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+    width: 120px;
+    height: 120px;
+    border-radius: 50% 0 50% 50%;
+    background: linear-gradient(135deg, rgba(129, 199, 132, 0.2), rgba(76, 175, 80, 0.1));
+    z-index: -1;
+  }
+  
+  .nav-links::after {
+    content: '';
+    position: absolute;
+    top: 80px;
+    left: 40px;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(236, 64, 122, 0.1), rgba(248, 187, 208, 0.2));
+    z-index: -1;
+  }
+}
+
+/* Extra Small Devices */
+@media (max-width: 480px) {
+  .nav-brand {
+    font-size: 18px;
+  }
+  
+  .nav-logo {
+    height: 32px;
+    margin-right: 8px;
+  }
+  
+  .nav-links a {
+    width: 90%;
+    font-size: 16px;
+    padding: 12px 16px;
+  }
+}

@@ -1,0 +1,608 @@
+/* Modern Plant & Flower Theme CSS */
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+  --primary-green: #2e7d32;
+  --light-green: #81c784;
+  --dark-green: #1b5e20;
+  --accent-pink: #f48fb1;
+  --accent-purple: #ce93d8;
+  --accent-yellow: #fff59d;
+  --text-dark: #263238;
+  --text-light: #fafafa;
+  --bg-light: #f5f9f6;
+  --card-bg: rgba(255, 255, 255, 0.92);
+  --shadow-soft: 0 8px 20px rgba(0, 0, 0, 0.08);
+  --shadow-hover: 0 12px 28px rgba(0, 0, 0, 0.15);
+  --border-radius-sm: 12px;
+  --border-radius-md: 16px;
+  --border-radius-lg: 24px;
+  --border-radius-full: 50px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Quicksand', sans-serif;
+  color: var(--text-dark);
+  background-color: var(--bg-light);
+  line-height: 1.6;
+}
+
+/* Main Container */
+.blog-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 3rem 4%;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Background */
+.blog-container::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/leaves-pattern.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  z-index: -1;
+  opacity: 0.3;
+  filter: saturate(1.2);
+}
+
+/* Floating Elements */
+.blog-container::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 300px;
+  height: 300px;
+  background-image: url('/flower-corner.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: top right;
+  z-index: -1;
+  opacity: 0.7;
+}
+
+/* Blog Title */
+.blog-title {
+  font-family: 'Playfair Display', serif;
+  text-align: center;
+  color: var(--dark-green);
+  margin-bottom: 3rem;
+  font-size: 3.5rem;
+  font-weight: 700;
+  position: relative;
+  padding-bottom: 1rem;
+}
+
+.blog-title::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 4px;
+  background: linear-gradient(to right, var(--accent-pink), var(--light-green));
+  border-radius: 2px;
+}
+
+.blog-title::before {
+  content: "🌿";
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 2rem;
+}
+
+/* Filter Section */
+.filter-section {
+  margin-bottom: 3rem;
+  padding: 2rem;
+  background: var(--card-bg);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  position: relative;
+  overflow: hidden;
+}
+
+.filter-section::before {
+  content: "🌱";
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  font-size: 1.5rem;
+  opacity: 0.5;
+}
+
+.filter-section::after {
+  content: "🌸";
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 1.5rem;
+  opacity: 0.5;
+}
+
+/* Search Box */
+.search-box {
+  margin-bottom: 2rem;
+  position: relative;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.search-input {
+  width: 100%;
+  padding: 1.2rem 1.5rem 1.2rem 3.5rem;
+  border: none;
+  border-radius: var(--border-radius-full);
+  font-size: 1.1rem;
+  font-family: 'Quicksand', sans-serif;
+  background-color: rgba(255, 255, 255, 0.8);
+  color: var(--text-dark);
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.search-input:focus {
+  outline: none;
+  box-shadow: 0 6px 16px rgba(46, 125, 50, 0.15);
+  background-color: white;
+}
+
+.search-input::placeholder {
+  color: #90a4ae;
+}
+
+/* Search Icon */
+.search-box::before {
+  content: "";
+  position: absolute;
+  left: 1.2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.2rem;
+  color: var(--primary-green);
+  pointer-events: none;
+}
+
+/* Category Filters */
+.category-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  padding: 0.5rem 0;
+}
+
+.category-btn {
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: var(--border-radius-full);
+  background: white;
+  color: var(--primary-green);
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: 'Quicksand', sans-serif;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.category-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.6s ease;
+}
+
+.category-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  color: var(--dark-green);
+}
+
+.category-btn:hover::before {
+  transform: translateX(100%);
+}
+
+.category-btn.active {
+  background: var(--primary-green);
+  color: white;
+  box-shadow: 0 5px 15px rgba(46, 125, 50, 0.3);
+}
+
+/* Button Icons */
+.category-btn[data-category="medicinal"]::after {
+  content: "🌿";
+  margin-left: 0.3rem;
+}
+
+.category-btn[data-category="culinary"]::after {
+  content: "🍃";
+  margin-left: 0.3rem;
+}
+
+.category-btn[data-category="ornamental"]::after {
+  content: "🌷";
+  margin-left: 0.3rem;
+}
+
+.category-btn[data-category="aromatic"]::after {
+  content: "🌺";
+  margin-left: 0.3rem;
+}
+
+/* Herb Grid */
+.herb-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2.5rem;
+  padding: 1rem 0;
+}
+
+/* Herb Card */
+.herb-card {
+  background: var(--card-bg);
+  border-radius: var(--border-radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+  transition: all 0.4s ease;
+  position: relative;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.herb-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-hover);
+}
+
+.herb-card::before {
+  content: "🌱";
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  font-size: 2rem;
+  opacity: 0;
+  transition: all 0.4s ease;
+  transform: rotate(45deg);
+  filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.2));
+}
+
+.herb-card:hover::before {
+  opacity: 1;
+  top: -5px;
+  right: 10px;
+}
+
+/* Herb Card Image */
+.herb-card-image {
+  width: 100%;
+  height: 240px;
+  overflow: hidden;
+  position: relative;
+}
+
+.herb-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s ease, filter 0.8s ease;
+}
+
+.herb-card:hover .herb-card-image img {
+  transform: scale(1.08);
+  filter: brightness(1.05) saturate(1.1);
+}
+
+.herb-card-image::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  background: linear-gradient(to top, var(--card-bg), transparent);
+}
+
+/* Herb Card Content */
+.herb-card-content {
+  padding: 1.8rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.herb-card-content h2 {
+  color: var(--dark-green);
+  margin-bottom: 1rem;
+  font-size: 1.7rem;
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+.herb-card-content h2::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: var(--light-green);
+  border-radius: 2px;
+}
+
+.herb-card-content p {
+  color: var(--text-dark);
+  line-height: 1.7;
+  margin-bottom: 1.8rem;
+  flex-grow: 1;
+}
+
+/* Read More Button */
+.read-more-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.9rem 1.8rem;
+  background: linear-gradient(45deg, var(--primary-green), var(--light-green));
+  color: white;
+  text-decoration: none;
+  border-radius: var(--border-radius-full);
+  transition: all 0.4s ease;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  position: relative;
+  overflow: hidden;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(46, 125, 50, 0.2);
+  font-family: 'Quicksand', sans-serif;
+  align-self: flex-start;
+}
+
+.read-more-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(46, 125, 50, 0.3);
+}
+
+.read-more-btn::before {
+  content: "🌿";
+  margin-right: 0.6rem;
+  font-size: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.read-more-btn:hover::before {
+  transform: rotate(15deg);
+}
+
+.read-more-btn::after {
+  content: '';
+  position: absolute;
+  width: 30px;
+  height: 300%;
+  background: rgba(255, 255, 255, 0.2);
+  top: -100%;
+  left: -100%;
+  transform: rotate(25deg);
+  transition: transform 0.6s ease;
+}
+
+.read-more-btn:hover::after {
+  transform: translateX(300%) rotate(25deg);
+}
+
+/* Animations */
+@keyframes floatingLeaf {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate(10px, -10px) rotate(5deg);
+  }
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+}
+
+@keyframes colorChange {
+  0% {
+    filter: hue-rotate(0deg);
+  }
+  50% {
+    filter: hue-rotate(10deg);
+  }
+  100% {
+    filter: hue-rotate(0deg);
+  }
+}
+
+/* Special Card Effects */
+.herb-card:nth-child(3n+1) {
+  animation: colorChange 10s infinite alternate;
+}
+
+.herb-card:nth-child(3n+2) .herb-card-image::before {
+  content: "🌺";
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  font-size: 1.5rem;
+  z-index: 1;
+  opacity: 0.7;
+  animation: floatingLeaf 5s infinite ease-in-out;
+}
+
+.herb-card:nth-child(3n) .herb-card-image::before {
+  content: "🍃";
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 1.5rem;
+  z-index: 1;
+  opacity: 0.7;
+  animation: floatingLeaf 7s infinite ease-in-out;
+}
+
+/* Responsive Styles */
+@media (max-width: 1200px) {
+  .blog-title {
+    font-size: 2.8rem;
+  }
+  
+  .herb-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .blog-container {
+    padding: 2rem 3%;
+  }
+  
+  .filter-section {
+    padding: 1.5rem;
+  }
+  
+  .blog-title {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .blog-title {
+    font-size: 2.2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .filter-section {
+    padding: 1.2rem;
+  }
+  
+  .search-input {
+    padding: 1rem 1.2rem 1rem 3rem;
+    font-size: 1rem;
+  }
+  
+  .category-filters {
+    gap: 0.7rem;
+  }
+  
+  .category-btn {
+    padding: 0.7rem 1.2rem;
+    font-size: 0.95rem;
+  }
+  
+  .herb-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .herb-card-content {
+    padding: 1.5rem;
+  }
+  
+  .herb-card-content h2 {
+    font-size: 1.5rem;
+  }
+  
+  .read-more-btn {
+    padding: 0.8rem 1.5rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .blog-container {
+    padding: 1.5rem 2%;
+  }
+  
+  .blog-title {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .filter-section {
+    padding: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .search-input {
+    padding: 0.9rem 1rem 0.9rem 2.8rem;
+  }
+  
+  .search-box::before {
+    left: 1rem;
+    font-size: 1rem;
+  }
+  
+  .herb-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .herb-card-image {
+    height: 200px;
+  }
+  
+  .category-filters {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+    justify-content: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .category-btn {
+    white-space: nowrap;
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+  }
+  
+  .herb-card-content h2 {
+    font-size: 1.3rem;
+  }
+  
+  .herb-card-content p {
+    font-size: 0.95rem;
+  }
+  
+  .read-more-btn {
+    padding: 0.7rem 1.3rem;
+    font-size: 0.95rem;
+  }
+}
