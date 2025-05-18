@@ -51,6 +51,13 @@ const NavBar = () => {
                     Health
                 </Link>
                 <Link 
+                    to="/herbstore"
+                    className={currentPath.includes('/herbstore') ? 'active' : ''}
+                    onClick={closeMenu}
+                >
+                    Herb Store
+                </Link>
+                <Link 
                     to="/blog"
                     className={currentPath === '/blog' ? 'active' : ''}
                     onClick={closeMenu}

@@ -342,3 +342,19 @@ html {
   cursor: pointer;
   z-index: 10;
 }
+.visit-store-btn {
+  margin-top: 15px;
+  padding: 10px 20px;
+  background-color: #3a7d44;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.visit-store-btn:hover {
+  background-color: #2c5e32;
+}
+

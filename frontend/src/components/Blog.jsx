@@ -208,54 +208,56 @@ const Blog = () => {
 
     return (
         <div className="blog-container">
-            <h1 className="blog-title"><br></br>Explore Medicinal Herbs</h1>
-            
-            <div className="filter-section">
-                <div className="search-box">
-                    <input
-                        type="text"
-                        placeholder="Search herbs..."
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                        className="search-input"
-                    />
+            <div className="blog-content-wrapper">
+                <h1 className="blog-title"><br></br>Explore Medicinal Herbs</h1>
+                
+                <div className="filter-section">
+                    <div className="search-box">
+                        <input
+                            type="text"
+                            placeholder="Search herbs..."
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                            className="search-input"
+                        />
+                    </div>
+
+                    <div className="category-filters">
+                        {Object.entries(categories).map(([key, label]) => (
+                            <button
+                                key={key}
+                                className={`category-btn ${selectedCategory === key ? 'active' : ''}`}
+                                onClick={() => setSelectedCategory(key)}
+                            >
+                                {label}
+                            </button>
+                        ))}
+                    </div>
                 </div>
 
-                <div className="category-filters">
-                    {Object.entries(categories).map(([key, label]) => (
-                        <button
-                            key={key}
-                            className={`category-btn ${selectedCategory === key ? 'active' : ''}`}
-                            onClick={() => setSelectedCategory(key)}
-                        >
-                            {label}
-                        </button>
+                <div className="herb-grid">
+                    {filteredHerbs.map(([id, herb]) => (
+                        <div key={id} className="herb-card">
+                            <div className="herb-card-image">
+                                <img 
+                                    src={`/herbs/${id}.jpg`} 
+                                    alt={herb.name}
+                                    onError={(e) => {
+                                        e.target.src = '/herbs/placeholder.jpg';
+                                        e.target.onerror = null;
+                                    }}
+                                />
+                            </div>
+                            <div className="herb-card-content">
+                                <h2>{herb.name}</h2>
+                                <p>{herb.shortDescription}</p>
+                                <Link to={`/blog/${id}`} className="read-more-btn">
+                                    Read More
+                                </Link>
+                            </div>
+                        </div>
                     ))}
                 </div>
-            </div>
-
-            <div className="herb-grid">
-                {filteredHerbs.map(([id, herb]) => (
-                    <div key={id} className="herb-card">
-                        <div className="herb-card-image">
-                            <img 
-                                src={`/herbs/${id}.jpg`} 
-                                alt={herb.name}
-                                onError={(e) => {
-                                    e.target.src = '/herbs/placeholder.jpg';
-                                    e.target.onerror = null;
-                                }}
-                            />
-                        </div>
-                        <div className="herb-card-content">
-                            <h2>{herb.name}</h2>
-                            <p>{herb.shortDescription}</p>
-                            <Link to={`/blog/${id}`} className="read-more-btn">
-                                Read More
-                            </Link>
-                        </div>
-                    </div>
-                ))}
             </div>
         </div>
     );

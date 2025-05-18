@@ -29,7 +29,7 @@ const BlogDetail = () => {
             researchStudies: "Multiple studies have shown its effectiveness in...",
             traditionalUse: "In traditional Ayurveda, Amla has been used for..."
         },
-        // ... Add detailed information for all herbs
+       
     };
 
     const herb = herbDetails[herbId];

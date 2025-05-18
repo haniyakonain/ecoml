@@ -13,6 +13,7 @@ import TestConnection from './components/TestConnection';
 import './components/styles/main.css';
 import axios from 'axios';
 import logo from '/public/logo.jpg';
+import HerbStore from './components/HerbStore'; 
 
 function App() {
     // State for farming section
@@ -40,31 +41,31 @@ function App() {
         }
     };
 
-   // In your App.jsx, change the fetchHerbData function to:
-const fetchHerbData = async (symptoms) => {
-    setLoading(true);
-    try {
-        const response = await axios.post(
-            'http://localhost:5000/api/recommend', 
-            { symptoms },
-            {
-                headers: {
-                    'Content-Type': 'application/json'
+    // Fetch herb recommendations
+    const fetchHerbData = async (symptoms) => {
+        setLoading(true);
+        try {
+            const response = await axios.post(
+                'http://localhost:5000/api/recommend', 
+                { symptoms },
+                {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
                 }
-            }
-        );
-        setHerbData(response.data);
-    } catch (error) {
-        console.error('Full error details:', {
-            message: error.message,
-            response: error.response?.data,
-            status: error.response?.status,
-            headers: error.response?.headers,
-        });
-    } finally {
-        setLoading(false);
-    }
-};
+            );
+            setHerbData(response.data);
+        } catch (error) {
+            console.error('Full error details:', {
+                message: error.message,
+                response: error.response?.data,
+                status: error.response?.status,
+                headers: error.response?.headers,
+            });
+        } finally {
+            setLoading(false);
+        }
+    };
 
     return (
         <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
@@ -82,6 +83,8 @@ const fetchHerbData = async (symptoms) => {
                         />
                     } />
                     <Route path="/test-connection" element={<TestConnection />} />
+                    <Route path="/herbstore" element={<HerbStore />} /> {
+                    }
                 </Routes>
 
                 {/* Display farming results */}
@@ -104,7 +107,7 @@ const fetchHerbData = async (symptoms) => {
 
                 <footer className="footer">
                     <div className="footer-content">
-                    <div className="footer-logo-section">
+                        <div className="footer-logo-section">
                             <h3>EcoMl</h3>
                         </div>
                         <p className="footer-text">

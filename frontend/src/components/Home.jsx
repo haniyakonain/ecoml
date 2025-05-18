@@ -8,16 +8,29 @@ import './styles/main.css';
 import api from '../api/config';
 
 const Home = () => {
-    // ... all your existing state and functions ...
+    const navigate = useNavigate(); 
+    const [recommendations, setRecommendations] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState(null);
 
     const handleSymptomSubmit = async (symptoms) => {
+        setIsLoading(true);
+        setError(null);
         try {
             const response = await api.post('/recommendations', { symptoms });
             setRecommendations(response.data.recommendations);
         } catch (error) {
             console.error('Error fetching recommendations:', error);
-            // Show user-friendly error message
-            setError(error.message);
+            setError('Failed to fetch recommendations. Please try again.');
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    const scrollToSystem = () => {
+        const section = document.getElementById('recommendation-system');
+        if (section) {
+            section.scrollIntoView({ behavior: 'smooth' });
         }
     };
 
@@ -33,22 +46,31 @@ const Home = () => {
                 <button className="get-started-btn" onClick={scrollToSystem}>
                     Get Started
                 </button>
+                <button className="visit-store-btn" onClick={() => navigate('/herbstore')}>
+                    🌿 Visit Herb Store
+                </button>
             </div>
+
             <div id="recommendation-system" className="system-section">
                 <div className="recommendation-content">
                     <SymptomChecker onSubmit={handleSymptomSubmit} />
+
                     {isLoading && (
                         <div className="loader">
                             <div className="loader-spinner"></div>
                             <p>Analyzing your symptoms...</p>
                         </div>
                     )}
+
                     {error && <div className="error-message">{error}</div>}
-                    {recommendations && <RecommendationResults data={recommendations} />}
+
+                    {recommendations && (
+                        <RecommendationResults data={recommendations} />
+                    )}
                 </div>
             </div>
         </section>
     );
 };
 
-export default Home; 
+export default Home;
